@@ -7,18 +7,19 @@ import './Events/Client/message_create.dart';
 import './Commands/Utils/help.dart';
 import './Commands/Utils/ping.dart';
 import './Commands/Mod/clear.dart';
-import 'Handler/database_connexion.dart';
+import 'Commands/Admin/blacklist.dart';
+
+import 'handler/logs_handler.dart';
+import 'handler/database_connexion.dart';
+import 'state/database_state.dart';
 
 void main () async {
   final kernel = Kernel(
     intents: IntentService(all: true),
     events: EventService([MessageCreate(), Ready()]),
-    commands: CommandService([Help() ,Ping(), Clear()])
+    commands: CommandService([Help(), Ping(), Clear(), Blacklist()]),
+    states: SharedStateService([DatabaseState()])
   );
 
   await kernel.init();
-
-  final con = DatabaseConnexion();
-  await con.open();
-  print("[DB] Database has been connected.");
 }

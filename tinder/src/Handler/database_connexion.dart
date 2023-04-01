@@ -1,9 +1,10 @@
 import 'package:mineral/core/extras.dart';
 import 'package:mysql1/mysql1.dart';
 
-class DatabaseConnexion with MineralContext {
-  late final connexion;
+import '../state/database_state.dart';
+import '../managers/database_manager.dart';
 
+class DatabaseConnexion with MineralContext {
   Future<void> open () async {
     final settings = new ConnectionSettings(
       host: environment.getOrFail("_host"),
@@ -12,6 +13,11 @@ class DatabaseConnexion with MineralContext {
       port: int.parse(environment.getOrFail("_port"))
     );
 
-    connexion = await MySqlConnection.connect(settings);
+    final con = states.use<DatabaseState>();
+    final db = await MySqlConnection.connect(settings);
+
+    DatabaseManager dbManager = DatabaseManager();
+    dbManager.setConnexion(db);
+    con.setDatabase(dbManager);
   }
 }

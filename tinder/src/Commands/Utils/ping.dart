@@ -4,7 +4,7 @@ import 'package:mineral/core/api.dart';
 
 class Ping extends MineralCommand {
   Ping () {
-    register(CommandBuilder('ping', 'Ping command description'));
+    register(CommandBuilder('ping', 'Répond pong!'));
   }
   
   Future<void> handle (CommandInteraction interaction) async {

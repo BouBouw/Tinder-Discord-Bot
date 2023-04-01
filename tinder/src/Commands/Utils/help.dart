@@ -4,7 +4,7 @@ import 'package:mineral/core/api.dart';
 
 class Help extends MineralCommand {
   Help () {
-    register(CommandBuilder('help', 'Help command description'));
+    register(CommandBuilder('help', "Page d'aide"));
   }
   
   Future<void> handle (CommandInteraction interaction) async {
